@@ -1,0 +1,78 @@
+<html>
+<head>
+	<title>PDC WinServer 2008</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.23.1" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>PDC WinServer</i></li>
+    <li><b>Componentes del grupo:</b> <i>Gregorio Adrián Quintero Álvarez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>10 de Abril de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>1. PDC WinServer 2008</a> | <a href='#bloque2'>1.1 Configuración Inicial</a> | <a href='#bloque3'>1.2 Controlador del Dominio</a> |
+ <a href='#bloque4'>1.3 Usuarios del Dominio</a>| <a href='#bloque5'>1.4 Equipos del Dominio</a> |</br> <a href='#bloque6'>1.5 Perfiles moviles y obligatorios </a> | 
+ <a href='#final'>1.6 Control de acceso</a>
+</div>
+<h1><a id='bloque1'>1. PDC WinServer 2008</a></h1>
+<p  style='text-align:justify;'>En esta práctica vamos a montar un Controlador Primario de Dominio usando un Windows Server 2008. Además es necesario configurar la IP de la máquina virtual estática y el modo de red en adaptador puente. </p>
+<h1><a id='bloque2'>1.1 Configuración Inicial</a></h1>
+<p  style='text-align:justify;'>Para esta práctica es necesario el uso de un Windows 2008 Server Enterprise. Después es necesario que deshabilitemos
+la estricta política de seguridad que tiene el Windows Server.</br>
+Ahora configuraremos el host con el DNS1 con el propio de Windows Server (127.0.0.1) y como DNS" el del centro (172.16.1.1)</p>
+<img src='./fotos/1a.png'/> <img src='./fotos/1aa.png'/></br></br>
+<h1><a id='bloque3'>1.2 Controlador del Dominio</a></h1>
+<p  style='text-align:justify;'>Ahora necesitaremos instalar el Directorio Activo para ello vamos a inicio -> ejecutar  y hay vamos a dcpromo y elegimos el 
+controlador de dominio para un dominio nuevo, después escogemos el dominio en un nuevo bosque y como nombre de dominio elegimos las letras de nuestro apellido + 1W.IDP
+en mi caso las cuatro primeras del primer apellido y las tres primeras del segundo apellido para que no se repita (QUINALV1W.IDP) y a continuación elegimos el nivel funcional del bosque
+como Windows Server 2008 R2</p>
+<img src='./fotos/1.png'/></br></br>
+ <img src='./fotos/2.png'/></br></br><img src='./fotos/3.png'/></br></br>
+<h1><a id='bloque4'>1.3 Usuarios del Dominio</a></h1>
+<p  style='text-align:justify;'>A continuación iremos a Inicio -> Herramientas Administrativas -> Usuarios y Equipos de Active Directory después buscamos la carpeta Users y dentro realizamos lo siguiente:</br>
+ - Crear el grupo JEDI con los siguientes usuarios de dominio: "yoda,", "obiwan" y "quigon". </br>
+ - Crear el grupo SITH con los siguientes usuarios de dominio: "emperador", "vader" y "maul".</br> </p>
+<img src='./fotos/4.png'/></br></br>
+<h1><a id='bloque5'>1.4 Equipos del Dominio</a></h1>
+<p  style='text-align:justify;'>En esta parte necesitamos 2MV's con Windows 7 enterprise que actuarán de clientes o equipos del dominio. Después le estableceremos de nombre a los equipos de Windows 7 el primer apellido.
+Como tenemos 2 máquinas con Windows 7 a una le pondremos QuinteroAlv2a y a la otra QuinteroAlv2b.</br>
+También es muy importante que todos los equipos esten sincronizados en cuanto al reloj y zona horaria. Además el cliente debe tener como DNS1 la IP del PDC y como DNS2 ponemos a FRY (172.16.1.1), 
+ahora añadimos el equipo de cliente al dominio y comprobamos que podemos entrar en los equipos "QuinteroAlv2a" y "QuinteroAlv2b" usando los usuarios del dominio.</br>
+Después comprobamos en el PDC que aparecen los equipos "QuinteroAlv2a" y "QuinteroAlv2b" usando los usuarios del dominio. </p>
+<img src='./fotos/5a.png'/></br></br><img src='./fotos/5b.png'/></br></br>
+<img src='./fotos/6.png'/><img src='./fotos/6b.png'/></br></br>
+<h1><a id='bloque6'>1.5 Perfiles moviles y obligatorios</a></h1>
+<p  style='text-align:justify;'>Para esta parte tenemos que crear un carpeta en el disco duro con el nombre de perfiles, la cual estará compartida en la red con los permisos de lectura/escritura para todos los usuarios
+del dominio. Después modificaremos los permisos de los siguientes usuarios en el atributo perfil.</br></br>
+- yoda: \vargas1\perfiles$\%username%</br>
+- obiwan: \vargas1\perfiles$\%username%</br>
+- quigon: \vargas1\perfiles$\%username%</br>
+- emperador: \vargas1\perfiles$\sith</br>
+- vader: \vargas1\perfiles$\sith</br>
+- maul: \vargas1\perfiles$\sith</br></br>
+<img src='./fotos/7.png' /></br></br><img src='./fotos/10.png' height="500" width="500"/>
+<img src='./fotos/11.png'/></br></br>
+Ahora iniciaremos sesión con Quinteroalv2a con los usuarios yoda, obiwan, quigon y emperador y modificaremos el entorno del escritorio y a continuación comprobamos que se han creado las carpetas con los perfiles en el servidor.</br></br>
+<img src='./fotos/111.png'height="500" width="700"/><img src='./fotos/222.png'height="500" width="700"/></br></br>
+<img src='./fotos/333.png'height="500" width="700"/></br></br>
+También tenemos que iniciar sesión con administrador en QuinteroAlv2a para comprobar que tenemos los perfiles para todos.</br></br>
+<img src='./fotos/12.png'/></br></br>
+La parte de los perfiles Obligatorios no se puede realizar porque no se ha encontrado la forma de realizarla puesto que daba error.</p>
+
+<h1><a id='final'>1.6 Control de acceso</a></h1>
+<p  style='text-align:justify;'>Modificaremos los permisos de acceso de los usuarios del dominio para que solo puedan acceder a una hora específica.</br></br>
+- Los "jedi" sólo pueden acceder de 08:00 a 14:00</br>
+- Los "sith" sólo pueden acceder de 14:00 a 20:00</p>
+<img src='./fotos/13.png'/><img src='./fotos/14.png'/></br></br>
+</body>
+</html>
