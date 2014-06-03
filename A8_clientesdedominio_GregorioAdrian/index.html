@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Clientes de Dominio</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 0.21" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Clientes de Dominio</i></li>
+    <li><b>Componentes del grupo:</b> <i>Gregorio Adrián Quintero Álvarez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>3 de Junio de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Introducción</a> | <a href='#bloque2'>Configurar Clientes</a> | <a href='#final'>Unirse al Dominio</a>
+</div>
+<h1><a id='bloque1'>Introducción</a></h1>
+<p   style='text-align:justify;'>Para esta práctica usaremos una máquina de Ubuntu la cual usaremos como cliente de dominio y la uniremos al PDC de Windows Server de prácticas anteriores.
+Para ello es necesario que es la máquina de Ubuntu instalemos LikeWise y lo configuremos utilizando el pdf de dirac-01.  </p>
+<h1><a id='bloque2'>Configurar Clientes</a></h1>
+<p   style='text-align:justify;'>Para conectar la máquina de Ubuntu al PDc hay que tener en cuenta la la hora y fecha, además ambas máquinas tienen que estar en la misma red en modo puente y con una red estática 
+para ello configuraremos mediante comando la interfaces con (nano /etc/network/interfaces), también debemos de configurar los servidores DNS en debian editando el archivo /etc/resolv.conf y después comprobaremos
+ que la configuración se ha realizado corectamente con el comando nslookup </p>
+  <img src='./fotos/1.png' height='350' width='350'/>   <img src='./fotos/2.png' height='350' width='350'/> <img src='./fotos/3.png' height='350' width='350'/>
+<h1><a id='final'>Unirse al Dominio</a></h1>
+<p   style='text-align:justify;'>Ahora vamos a unir el cliente Ubuntu al PDC de Windows Server usando LikeWise para ello lo descargamos desde la web de LikeWise, después de instalarlo y usando un terminal ejecutamos
+ domainjoin-gui y completamos el domain que nos pide
+introduciento el dominio del PDC, luego nos pedirá el usuario y la contraseña, posteriormente comprobamos que el cliente de Ubuntu se ha añadido correctamente.  </p>
+<img src='./fotos/4.png' height='350' width='350'/>   <img src='./fotos/5.png' height='350' width='350'/><img src='./fotos/5B.png' height='350' width='350'/>
+</body>
+</html>
