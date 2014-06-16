@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Registros de eventos local</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.23.1" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Registros de eventos local</i></li>
+    <li><b>Componentes del grupo:</b> <i>Gregorio Adrián Quintero Álvarez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>13 de Junio de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Intoducción</a> | <a href='#bloque2'>Registro en Windows</a> | <a href='#bloque4'>Registro en GNU/Linux (Gráfico)</a> | <a href='#bloque5'>Registro en GNU/Linux(Comandos)</a>
+ | <a href='#bloque5.1'>Configurar Syslon</a> | <a href='#bloque5.2'>Comprobar con logger</a> | <a href='#final'>Configuración de logrotate</a>
+</div>
+<h1><a id='bloque1'>1. Intoducción</a></h1>
+<p   style='text-align:justify;'>Toda la actividad importante del sistema debe quedar registrada en los ficheros de registro.
+ Esto nos permite tener un histórico del comportamiento del sistema, que nos ayuda a modo de "caja negra", a reconstruir
+ situaciones del pasado para diversos fines. Esta es la utilidad de la monitorización y la auditoría.</p>
+<h1><a id='bloque2'>2. Registro en Windows</a></h1>
+<p   style='text-align:justify;'>En el sistema operativo de Windows debemos activar unas directivas de seguridad, para auditar los inicios de
+sesión al sistema.</br>
+Establecemos el primer apellido como el nombre de la NETBIOS, después reiniciamos el equipo y creamos los usuarios Alu1, Alu2, Alu3 y a
+continuación entramos en el sistema con Alu1 de forma correcta, después entramos Alu2 poniendo la clave mal y no entramos en Alu3. Por último 
+buscamos en el sistema la herramienta visor de sucesos y comprobamos como quedó registrado los eventos anteriores.</p>
+<img src='./files/1.png' width="300" height="300"/><img src='./files/2.png' width="300" height="300"/>
+<h1><a id='bloque4'>3. Registro en GNU/Linux (Gráfico)</a></h1>
+<p   style='text-align:justify;'>Primero debemos cambiar el nombre del host por el primer apellido, después instalamos el programa Webmin 
+descargando el paquete deb de la web de Webmin y para instalarlo usamo dpkg. </br>
+Para iniciar el servicio Webmin, ejecutamos /etc/init.d/webmin start y para acceder al programa Webmin, abrimos un navegador
+web y ponemos como URL "https://localhost:10000"</p>
+<img src='./files/3.png' width="300" height="300"/><img src='./files/4.png' width="300" height="300"/></br>
+<img src='./files/5.png' width="300" height="300"/><img src='./files/6.png' width="300" height="300"/><img src='./files/4B.png' width="300" height="300"/>
+<h1><a id='bloque5'>4. Registro en GNU/Linux(Comandos)</a></h1>
+<p   style='text-align:justify;'>Ahora vamos a realizar una monitorización local de nuestro equipo GNU/Linux, con rotación de log's</p>
+<h3><a id='bloque5.1'>4.1 Configurar Syslon</a></h3>
+<p   style='text-align:justify;'>Primero consultamos el fichero /etc/rsyslog.d/50-default.conf y añadimos una nueva línea para configurar
+la grabación de nuestros eventos.</br>
+- Primero Como recurso.prioridad usaremos local0.</br>
+- Segundo Como fichero de log usaremos /var/log/nombrealumno/prueba-local.log.</br></br>
+Depués añadimos  la siguiente línea al fichero de configuracion /etc/rsyslog.d/50-default.conf:</br>
+- local0.* /var/log/nombredelalumno/prueba-local.log.</br>
+Con el usuario root, crear el fichero /var/log/nombredelalumno/prueba-local.log vacío y por último debemos recargar el servicio rsyslog, para que se recargue la nueva configuración
+</p>
+<img src="./files/7.png" width="300" height="300"/>
+<h3><a id='bloque5.2'>4.2 Comprobar con logger</a></h3>
+<p   style='text-align:justify;'>Empezaremos comprobando  que el fichero de log está vació por el momento con el comando cat /var/log/nombredelalumno/prueba-local.log. Ahora vamos a
+usar el comando logger para generar mensajes de log en el fichero anterior. Usaremos para nuestros ejemplos el recurso "local0". Pero también se podrían usar local1, local2, local3,
+local4, local5, local6 y local7. Posteriormente crearemos  varios registros mediante el comando logger, usando varias prioridades diferentes y otros valores para Consultar los 
+mensajes registrados, e indicar sobre un ejemplo el significado de cada campo de una línea concreta del log.  </p>
+<img src="./files/8.png" width="500" height="250"/>
+<h1><a id='final'>5. Configuración de logrotate</a></h1>
+<p   style='text-align:justify;'>Para empezar configuraremos el programa logrotate permite hacer rotación de los ficheros de log que se realizara en  /etc/logrotate.conf.
+ Ahora vamos a configurar logrotate para generar rotaciones de nuestro fichero de log. Para ello crearemos el fichero /etc/logrotate.d/nombre-del-alumno, ahora 
+ Vamos a generar muchos mensajes de log en el fichero de registro de eventos y podemos usar el script cuya función es la de generar cientos de mensajes de log hacia el nuevo fichero de registro.</br>
+Usando el comando siguiente podemos aumentar el tamaño del registro de log con la información contenida en un fichero de texto: logger -p local0.notice -t ETC-MOTD -f /etc/motd y posteriormente
+comprovamos que su tamaño ha aumentado.</br>
+Por último para que se dispare la rotación de log automáticamente podemos reiniciar el equipo y si no queremos reiniciar el equipo, podemos ejecutar manualmente el programa de rotación logrotate de la 
+siguiente forma: /usr/sbin/logrotate -f /etc/logrotate.conf
+ </p>
+ <img src="./files/10.png" width="500" height="250"/><img src="./files/11.png" width="500" height="250"/>
+</body>
+</html>
